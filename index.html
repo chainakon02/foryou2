@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>film</title>
+    <link rel="stylesheet" href="./login.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+  <div class="login">
+    <div class="form">
+      <p>Anutree</p>
+      <form class="login-form" onsubmit="return checkPassword()">
+        <input type="password" id="password" placeholder="password" required />
+        <button type="submit">OK</button>
+        <p id="error-message" style="color: red; display: none;">ใส่รหัสอีกครั้งงับบ</p>
+      </form>  
+    </div>
+  </div>
+
+  <script>
+    function checkPassword() {
+      const password = document.getElementById("password").value;
+      if (password === "05012002") {
+        alert("หมาแวนนน");
+        window.location.href = "love.html";
+        return false; 
+      } else {
+        document.getElementById("error-message").style.display = "block";
+        return false; 
+      }
+    }
+  </script>
+</body>
+</html>

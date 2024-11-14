@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>film</title>
+    <link rel="stylesheet" href="./love.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+  <div class="container">  
+    <div class="valentines" id="valentines">
+      <div class="envelope"></div>
+      <div class="front"></div>
+      <div class="card">
+        <div class="text">ถึงหมาแวน<br><br>เป็นแฟนกันไหม</div>
+        <div class="heart"></div>
+      </div>
+      <div class="hearts">
+        <div class="one"></div>
+        <div class="two"></div>
+        <div class="three"></div>
+        <div class="four"></div>
+        <div class="five"></div>
+      </div>
+    </div>
+    <div class="shadow"></div>
+  </div>
+
+  <!-- First audio -->
+  <audio id="bg-music" autoplay loop muted>
+    <source src="./Yours Ever.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <!-- Second audio (no loop) -->
+  <audio id="bg-music-2" muted>
+    <source src="./เสียงแมว.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <!-- Toggle buttons -->
+  <button id="toggle-sound">🔈 เปิดเพลง</button>
+  <button id="toggle-sound-2">🔈 เปิดเสียงแมว</button>
+  
+  <!-- Display the current audio status -->
+  <div id="audio-status">ตอนนี้ไม่มีเสียง</div>
+
+  <script>
+    $(document).ready(function () {
+      const audio1 = document.getElementById('bg-music');
+      const audio2 = document.getElementById('bg-music-2');
+      const toggleSoundButton1 = $('#toggle-sound');
+      const toggleSoundButton2 = $('#toggle-sound-2');
+      const audioStatus = $('#audio-status'); // Element to display the current audio status
+
+      toggleSoundButton1.on('click', function () {
+        if (audio1.muted) {
+          // Unmute audio1 and mute audio2
+          audio1.muted = false;
+          audio2.muted = true;
+          toggleSoundButton1.text('🔇 ปิดเพลง');
+          toggleSoundButton2.text('🔈 เปิดเสียงแมว');
+          audioStatus.text('ตอนนี้กำลังเล่นเพลง'); // Update the status
+        } else {
+          audio1.muted = true;
+          toggleSoundButton1.text('🔈 เปิดเพลง');
+          audioStatus.text('ตอนนี้ไม่มีเสียง'); // Update the status
+        }
+      });
+
+      toggleSoundButton2.on('click', function () {
+        if (audio2.muted) {
+          // Unmute audio2, mute audio1, and play audio2 once
+          audio2.muted = false;
+          audio2.play();
+          audio1.muted = true; // Mute audio1 if audio2 is playing
+          toggleSoundButton2.text('🔇 ปิดเสียงแมว');
+          toggleSoundButton1.text('🔈 เปิดเพลง');
+          audioStatus.text('ตอนนี้กำลังเล่นเสียงแมว'); // Update the status
+
+          // Mute audio2 again once it ends
+          audio2.onended = function() {
+            audio2.muted = true;
+            toggleSoundButton2.text('🔈 เปิดเสียงแมว');
+            audioStatus.text('ตอนนี้ไม่มีเสียง'); // Update the status
+          };
+        }
+      });
+
+      $('.container').mouseenter(function () {
+        $('.card').stop().animate({
+          top: '-90px'
+        }, 'slow');
+      }).mouseleave(function () {
+        $('.card').stop().animate({
+          top: '5px'
+        }, 'slow');
+      });
+    });
+  </script>
+</body>
+</html>
